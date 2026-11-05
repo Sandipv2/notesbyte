@@ -1,0 +1,27 @@
+{
+  "name": "notesbyte",
+  "version": "1.0.0",
+  "description": "A note app! Create. Share. Organise.",
+  "homepage": "https://github.com/Sandipv2/notesbyte#readme",
+  "bugs": {
+    "url": "https://github.com/Sandipv2/notesbyte/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sandipv2/notesbyte.git"
+  },
+  "license": "ISC",
+  "author": "Sandip, Dhruv, Aaron, Shiv",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node backend/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.21.0",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mongoose": "^9.11.4"
+  }
+}
