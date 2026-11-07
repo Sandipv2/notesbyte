@@ -12,10 +12,10 @@ export const sendVerificationMail = async (name, email, otp) => {
         await brevoClient.post("", {
             sender: {
                 email: process.env.SENDER_EMAIL,
-                name: "NotesByte",
+                name: "Notesbyte",
             },
             to: [{ email }],
-            subject: "Email verification OTP - NotesByte",
+            subject: "Email verification OTP - Notesbyte",
             htmlContent: verificationTemplate
                 .replace("{name}", name)
                 .replace("{otp}", otp)
@@ -33,9 +33,9 @@ export const sendVerificationMail = async (name, email, otp) => {
 export const sendWelcomeMail = async (email, name) => {
     try {
         await brevoClient.post("", {
-            sender: { email: process.env.SENDER_EMAIL, name: "NotesByte" },
+            sender: { email: process.env.SENDER_EMAIL, name: "Notesbyte" },
             to: [{ email }],
-            subject: "Welcome to NotesByte!",
+            subject: "Welcome to Notesbyte!",
             htmlContent: welcomeTemplate
                 .replace("{name}", name)
                 .replace("{year}", new Date().getFullYear()),
@@ -49,9 +49,9 @@ export const sendWelcomeMail = async (email, name) => {
 export const sendPasswordResetMail = async (name, email, resetUrl) => {
     try {
         await brevoClient.post("", {
-            sender: { email: process.env.SENDER_EMAIL, name: "NotesByte" },
+            sender: { email: process.env.SENDER_EMAIL, name: "Notesbyte" },
             to: [{ email }],
-            subject: "Password reset mail - NotesByte",
+            subject: "Password reset mail - Notesbyte",
             htmlContent: passwordResetTemplate
                 .replace("{name}", name)
                 .replace("{resetLink}", resetUrl)
@@ -66,7 +66,7 @@ export const sendPasswordResetMail = async (name, email, resetUrl) => {
 export const sendPasswordResetSuccessMail = async (name, email) => {
     try {
         await brevoClient.post("", {
-            sender: { email: process.env.SENDER_EMAIL, name: "NotesByte" },
+            sender: { email: process.env.SENDER_EMAIL, name: "Notesbyte" },
             to: [{ email }],
             subject: "Password reset successfully",
             htmlContent: resetPasswordSuccessTemplate
@@ -82,7 +82,7 @@ export const sendPasswordResetSuccessMail = async (name, email) => {
 export const sendAccountDeletedMail = async (name, email) => {
     try {
         await brevoClient.post("", {
-            sender: { email: process.env.SENDER_EMAIL, name: "NotesByte" },
+            sender: { email: process.env.SENDER_EMAIL, name: "Notesbyte" },
             to: [{ email }],
             subject: "Account deleted successfully!",
             htmlContent: accountDeletedTemplate
