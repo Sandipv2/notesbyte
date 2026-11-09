@@ -3,7 +3,7 @@ export const verificationTemplate = `
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Email Verification - NotesByte</title>
+    <title>Email Verification - Notesbyte</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -35,18 +35,18 @@ export const verificationTemplate = `
   </head>
   <body>
     <div class="container">
-      <h2>Email Verification - NotesByte</h2>
+      <h2>Email Verification - Notesbyte</h2>
       <p>Hi <strong>{name}</strong>,</p>
-      <p>You recently signed up for an account on <strong>NotesByte</strong>. To verify your email address, please use the following One-Time Password (OTP):</p>
+      <p>You recently signed up for an account on <strong>Notesbyte</strong>. To verify your email address, please use the following One-Time Password (OTP):</p>
 
       <div class="otp">{otp}</div>
 
-      <p>This OTP will expire in 24 Hours.</p>
+      <p>This OTP will expire in 10 minutes.</p>
       <p>If you didn&apos;t request this verification, please ignore this email.</p>
 
       <div class="footer">
-        This message was sent by NotesByte. <br />
-        &copy; {year} NotesByte App. All rights reserved.
+        This message was sent by Notesbyte. <br />
+        &copy; {year} Notesbyte App. All rights reserved.
       </div>
     </div>
   </body>
@@ -58,7 +58,7 @@ export const welcomeTemplate = `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Welcome to NotesByte</title>
+    <title>Welcome to Notesbyte</title>
     <style>
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -100,15 +100,15 @@ export const welcomeTemplate = `<!DOCTYPE html>
   </head>
   <body>
     <div class="container">
-      <div class="brand">NotesByte</div>
+      <div class="brand">Notesbyte</div>
       <h2>Welcome, {name} 👋</h2>
-      <p>Thanks for signing up for <strong>NotesByte</strong>!</p>
+      <p>Thanks for signing up for <strong>Notesbyte</strong>!</p>
       <p>Your account has been created successfully.</p>
       <p>Start organizing your tasks, capturing notes, and boosting productivity — all in one place.</p>
       <p>Let&apos;s get started!</p>
 
       <div class="footer">
-        &copy; {year} NotesByte App. All rights reserved.
+        &copy; {year} Notesbyte App. All rights reserved.
       </div>
     </div>
   </body>
@@ -161,7 +161,7 @@ export const passwordResetTemplate = `<!DOCTYPE html>
 </head>
 <body>
   <div class="container">
-    <div class="brand">NotesByte</div>
+    <div class="brand">Notesbyte</div>
     <h2>Reset your password</h2>
     <p>Hello {name},</p>
     <p>You recently requested to reset your password. Click the button below to set a new password:</p>
@@ -174,7 +174,7 @@ export const passwordResetTemplate = `<!DOCTYPE html>
     <p>If you didn’t request this, you can safely ignore this email.</p>
 
     <div class="footer">
-      &copy; {year} NotesByte. All rights reserved.
+      &copy; {year} Notesbyte. All rights reserved.
     </div>
   </div>
 </body>
@@ -229,15 +229,15 @@ export const resetPasswordSuccessTemplate = `<!DOCTYPE html>
 </head>
 <body>
   <div class="container">
-    <div class="brand">NotesByte</div>
+    <div class="brand">Notesbyte</div>
     <div class="status-icon">✅</div>
     <h2>Password Reset Successful</h2>
     <p>Hello {name},</p>
-    <p>Your password has been successfully reset. You can now log in to your NotesByte account using your new password.</p>
+    <p>Your password has been successfully reset. You can now log in to your Notesbyte account using your new password.</p>
     <p>If you did not perform this action, please contact us immediately.</p>
 
     <div class="footer">
-      &copy; {year} NotesByte. All rights reserved.
+      &copy; {year} Notesbyte. All rights reserved.
     </div>
   </div>
 </body>
@@ -255,7 +255,7 @@ export const accountDeletedTemplate = `<!DOCTYPE html>
   <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
     <tr>
       <td style="background-color: #00b8db; padding: 20px; text-align: center; color: white;">
-        <h1 style="margin: 0;">NotesByte</h1>
+        <h1 style="margin: 0;">Notesbyte</h1>
       </td>
     </tr>
     <tr>
@@ -265,12 +265,12 @@ export const accountDeletedTemplate = `<!DOCTYPE html>
           {name}, <br><br>
           This is a confirmation that your account has been successfully deleted from our system. We're sorry to see you go!
         </p>
-        <p style="color: #555;">Wishing you all the best,<br><strong>The NotesByte</strong></p>
+        <p style="color: #555;">Wishing you all the best,<br><strong>The Notesbyte</strong></p>
       </td>
     </tr>
     <tr>
       <td style="background-color: #f1f1f1; text-align: center; padding: 15px; font-size: 12px; color: #777;">
-        &copy; {year} NotesByte. All rights reserved.
+        &copy; {year} Notesbyte. All rights reserved.
       </td>
     </tr>
   </table>
