@@ -4,6 +4,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 
 import authRouter from './routes/auth.route.js';
+import noteRouter from './routes/note.route.js';
 
 import connectDB from './config/mongodb.js';
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
+app.use("/api/notes", noteRouter);
 
 app.listen(PORT, () => {
     connectDB();

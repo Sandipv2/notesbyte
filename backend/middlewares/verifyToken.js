@@ -6,7 +6,7 @@ export const verifyToken = (req, res, next) => {
     if(!token) {
         return res.status(401).json({
             success: false,
-            message: "Unauthorised - no token provided"
+            message: "Not registered or login. Token not found."
         })
     }
 
