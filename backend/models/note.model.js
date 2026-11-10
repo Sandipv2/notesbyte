@@ -21,6 +21,10 @@ const noteSchema = new mongoose.Schema({
         type: String
     },
 
+    imagePublicId: {
+        type: String
+    },
+
     isPrivate: {
         type: Boolean,
         default: true
