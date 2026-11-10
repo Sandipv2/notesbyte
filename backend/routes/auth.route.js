@@ -1,5 +1,15 @@
 import { Router } from "express";
-import { checkAuth, deleteAccount, forgotPassword, login, logout, register, resendOtp, resetPassword, verifyEmail } from "../controllers/auth.controller.js";
+import {
+    checkAuth,
+    deleteAccount,
+    forgotPassword,
+    login,
+    logout,
+    register,
+    resendOtp,
+    resetPassword,
+    verifyEmail
+} from "../controllers/auth.controller.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 
 const authRouter = Router();
