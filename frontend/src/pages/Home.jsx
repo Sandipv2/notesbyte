@@ -1,5 +1,4 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
+import { Link } from 'react-router-dom'
 
 function Home() {
   return (
@@ -17,9 +16,11 @@ function Home() {
         Keep your notes private or share them with anyone using a simple link.
       </p>
 
-      <button className='rounded-full bg-cyan-400 w-fit px-5 py-2 text-2xl text-black font-bold mt-20 cursor-pointer shadow-2xl duration-300 ease-linear transition-all hover:shadow-[0_0_35px_rgba(57,222,247,0.9)] hover:scale-105'>
-        Get Started
-      </button>
+      <Link to='/register'>
+        <button className='rounded-full bg-cyan-400 w-fit px-5 py-2 text-2xl text-black font-bold mt-20 cursor-pointer shadow-2xl duration-300 ease-linear transition-all hover:shadow-[0_0_35px_rgba(57,222,247,0.9)] hover:scale-105'>
+          Get Started
+        </button>
+      </Link>
     </div>
   )
 }

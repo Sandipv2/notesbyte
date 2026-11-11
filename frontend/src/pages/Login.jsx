@@ -33,9 +33,8 @@ function Login() {
                 }
               })}
               type="text"
-              name="email"
               placeholder="Email"
-              className="w-full min-w-0 py-2 outline-none"
+              className="w-full py-2 outline-none"
             />
           </div>
           {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email.message}</p>}
@@ -53,9 +52,8 @@ function Login() {
                 }
               })}
               type="password"
-              name="password"
               placeholder="Password"
-              className="w-full min-w-0 py-2 outline-none"
+              className="w-full py-2 outline-none"
             />
           </div>
           {errors.password && <p className="mt-2 text-sm text-red-500">{errors.password.message}</p>}
