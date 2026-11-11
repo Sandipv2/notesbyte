@@ -61,8 +61,8 @@ function Login() {
         <Link to="/forgot-password" className="w-full text-left text-lg text-blue-600 underline">
           Forgot Password?
         </Link>
-        <button type="submit" className="w-full cursor-pointer rounded-full bg-cyan-400 px-4 py-2 text-xl font-extrabold text-black duration-300 ease-linear hover:scale-[1.02]">
-          Register
+        <button type="submit" className="w-full cursor-pointer rounded-full bg-cyan-400 px-4 py-2 text-xl font-extrabold text-black duration-300 hover:scale-95 hover:bg-cyan-600">
+          Sign in
         </button>
         <p className="w-full text-center text-base sm:text-lg">
           Don't have an account? <Link to='/register' className="text-blue-600 underline">Sign up here</Link>
