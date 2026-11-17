@@ -1,9 +1,13 @@
-import { useRef } from "react"
+import { useRef } from "react";
+import { useAuthStore } from "../store/authStore";
+
 
 function VerifyEmail() {
   const inputRefs = useRef([]);
 
-  const handleSubmit = (e) => {
+  const { verifyEmail, isLoading } = useAuthStore();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let otpString = '';
 
@@ -11,8 +15,13 @@ function VerifyEmail() {
       otpString += e.value;
     })
 
+    const otp = Number(otpString);
 
-    const otp = Number(otp);
+    try {
+      await verifyEmail(otp);
+    } catch (err) {
+      console.log(err.response.data.message || err.message);
+    }
   }
 
   const handleInputEnter = (e, idx) => {

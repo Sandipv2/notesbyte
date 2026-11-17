@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
+
+import { useAuthStore } from "../store/authStore";
 
 function Register() {
 
@@ -16,8 +18,16 @@ function Register() {
 
   const password = watch("password");
 
-  const submitHandler = (e) => {
-    alert(e.email + e.password)
+  const { signup } = useAuthStore();
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
+    try {
+      await signup(e.name, e.email, e.password);
+      navigate('/verify-email');
+    } catch (err) {
+      console.log(err.response.data.message || err.message);
+    }
   }
 
   return (

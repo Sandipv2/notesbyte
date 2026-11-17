@@ -17,7 +17,7 @@ export const useAuthStore = create((set) => ({
     isLoading: false,
     isLoggedIn: false,
 
-    register: async (name, email, password) => {
+    signup: async (name, email, password) => {
         set({ isLoading: true });
         try {
             const { data } = await authAPI.post('/register', {
@@ -76,14 +76,14 @@ export const useAuthStore = create((set) => ({
         } catch (error) {
             set({ isLoading: false });
             toast.error(error.response?.data?.message || error.message);
-            throw err;
+            throw error;
         }
     },
 
     logout: async () => {
         set({ isLoading: true });
         try {
-            const { data } = await axios.post('/logout');
+            const { data } = await authAPI.post('/logout');
             set({ isLoading: false, user: null, isLoggedIn: false });
 
             return data;
@@ -97,7 +97,7 @@ export const useAuthStore = create((set) => ({
     forgotPassword: async (email) => {
         set({ isLoading: true });
         try {
-            const { data } = await axios.post('/forgot-password', { email });
+            const { data } = await authAPI.post('/forgot-password', { email });
             set({ isLoading: false });
             toast.success("Reset link sent to your mail");
 
@@ -112,7 +112,7 @@ export const useAuthStore = create((set) => ({
     resetPassword: async (token, password) => {
         set({ isLoading: true });
         try {
-            const { data } = await axios.post(`/reset-password/${token}`, { password });
+            const { data } = await authAPI.post(`/reset-password/${token}`, { password });
 
             set({ isLoading: false });
             toast.success("Password reset success");
@@ -128,27 +128,25 @@ export const useAuthStore = create((set) => ({
     checkAuth: async () => {
         set({ isLoading: true });
         try {
-            const { data } = await axios.post('/check-auth');
+            const { data } = await authAPI.get('/check-auth');
 
             set({ isLoading: false, user: data.user, isLoggedIn: true });
-            toast.success("Password reset success");
 
             return data;
         } catch (err) {
-            set({ isLoading: false });
-            toast.error(err.response?.data?.message || err.message);
-            throw err;
+            set({ isLoading: false, user: null, isLoggedIn: false });
+            return null
         }
     },
 
     deleteAccount: async () => {
         set({ isLoading: true });
         try {
-            const { data } = await axios.post('/delete-account');
+            const { data } = await authAPI.post('/delete-account');
 
             set({ isLoading: false });
             toast.success("Account deleted!");
-            
+
             return data;
         } catch (err) {
             set({ isLoading: false });

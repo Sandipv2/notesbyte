@@ -15,37 +15,67 @@ import DeleteAccount from './pages/DeleteAccount'
 import ViewNote from './pages/ViewNote'
 import NotFound from './pages/NotFound'
 
+import ProtectedRoute from './components/ProtectedRoute'
+import RedirectLoggedInUser from './components/RedirectLoggedInUser'
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
       <Route
         path='/register'
-        element={<Register />}
+        element={
+          <RedirectLoggedInUser>
+            <Register />
+          </RedirectLoggedInUser>
+        }
       />
       <Route
         path='/verify-email'
-        element={<VerifyEmail />}
+        element={
+          <RedirectLoggedInUser>
+            <VerifyEmail />
+          </RedirectLoggedInUser>}
       />
       <Route
         path='/login'
-        element={<Login />}
+        element={
+          <RedirectLoggedInUser>
+            <Login />
+          </RedirectLoggedInUser>
+        }
       />
       <Route
         path='/forgot-password'
-        element={<ForgotPassword />}
+        element={
+          <RedirectLoggedInUser>
+            <ForgotPassword />
+          </RedirectLoggedInUser>
+        }
       />
       <Route
         path='/reset-password'
-        element={<ResetPassword />}
+        element={
+          <RedirectLoggedInUser>
+            <ResetPassword />
+          </RedirectLoggedInUser>
+        }
       />
       <Route
         path='/delete-account'
-        element={<DeleteAccount />}
+        element={
+          <ProtectedRoute>
+            <DeleteAccount />
+          </ProtectedRoute>
+        }
       />
       <Route
         path='/notes'
-        element={<Notes />}
+        element={
+          <ProtectedRoute>
+            <Notes />
+          </ProtectedRoute>
+        }
       />
       <Route
         path='/notes/:noteId'
