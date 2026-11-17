@@ -1,54 +1,40 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
-const NotFound = () => {
+function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col font-sans">
-      <nav className="w-full border-b border-gray-800 p-4 flex justify-between items-center">
-        <div className="text-[#00CCFF] font-bold text-2xl tracking-wide">
-          Notesbyte
-        </div>
+    <main className="flex min-h-screen flex-col items-center justify-center px-5 pb-16 pt-24 text-center">
+      <p className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-cyan-400">
+        Notesbyte
+      </p>
+      <h1 className="text-7xl font-extrabold leading-none text-cyan-400 sm:text-9xl">
+        404
+      </h1>
+      <h2 className="mt-6 text-3xl font-bold sm:text-4xl">Page not found</h2>
+      <p className="mt-4 max-w-lg text-base leading-relaxed text-slate-300 sm:text-xl">
+        This page does not exist. Don't worry, you're still on the right server—just the wrong branch.
+      </p>
+
+      <div className="mt-9 flex w-full max-w-sm flex-col gap-3 sm:flex-row sm:max-w-none sm:justify-center">
         <button
-          onClick={() => navigate('/login')}
-          className="px-6 py-1.5 rounded-full border-2 border-[#00CCFF] text-white hover:bg-[#00CCFF] hover:text-black transition-colors font-semibold text-sm"
+          type="button"
+          onClick={() => navigate(-1)}
+          className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-slate-600 px-7 py-3 font-bold transition-colors hover:border-cyan-400 hover:text-cyan-400"
         >
-          Login
+          <FaArrowLeft aria-hidden="true" />
+          Go back
         </button>
-      </nav>
-      <main className="flex-1 flex flex-col items-center justify-center px-4 text-center">
-        <h1 className="text-6xl md:text-7xl font-bold text-[#00CCFF] mb-4">
-          404
-        </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">
-          Page not found
-        </h2>
-        <p className="text-gray-400 max-w-lg mb-10 text-lg">
-          A personal space to save your thoughts, code snippets, and images.
-          But this specific note or page seems to have been lost in the void.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center gap-2 px-8 py-3 rounded-full border-2 border-gray-600 text-white hover:border-[#00CCFF] hover:text-[#00CCFF] transition-all font-semibold"
-          >
-            <ArrowLeft size={20} />
-            Go Back
-          </button>
-
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center justify-center px-8 py-3 rounded-full bg-[#00CCFF] text-black font-bold hover:bg-opacity-90 transition-all shadow-[0_0_15px_rgba(0,204,255,0.4)]"
-          >
-            Get Started
-          </button>
-        </div>
-      </main>
-    </div>
+        <Link
+          to="/"
+          className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-7 py-3 font-extrabold text-black shadow-lg transition duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(57,222,247,0.55)]"
+        >
+          Back to home
+        </Link>
+      </div>
+    </main>
   );
-};
+}
 
 export default NotFound;
