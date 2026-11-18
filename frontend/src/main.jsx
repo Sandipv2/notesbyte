@@ -11,7 +11,8 @@ import VerifyEmail from './pages/VerifyEmail'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Notes from './pages/Notes'
-import DeleteAccount from './pages/DeleteAccount'
+import CreateNote from './pages/CreateNote'
+import Settings from './pages/Settings'
 import ViewNote from './pages/ViewNote'
 import NotFound from './pages/NotFound'
 
@@ -62,10 +63,10 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path='/delete-account'
+        path='/settings'
         element={
           <ProtectedRoute>
-            <DeleteAccount />
+            <Settings />
           </ProtectedRoute>
         }
       />
@@ -74,6 +75,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <Notes />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/notes/new'
+        element={
+          <ProtectedRoute>
+            <CreateNote />
           </ProtectedRoute>
         }
       />
