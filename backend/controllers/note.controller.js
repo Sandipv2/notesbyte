@@ -205,15 +205,15 @@ export const getOneNote = async (req, res) => {
             });
         }
 
-        const isOwner = userId && note.userId.toString() === userId;
+        const isOwner = userId && note.userId.toString() == userId;
         if (note.isPrivate && !isOwner) {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
                 message: "The note is private"
             });
         }
 
-        return res.status(200).json({ success: true, note });
+        return res.status(200).json({ success: true, note, isOwner: userId === note.userId.toString() });
     } catch (err) {
         res.status(500).json({
             success: false,

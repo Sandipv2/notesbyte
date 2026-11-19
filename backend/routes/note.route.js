@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { verifyToken } from "../middlewares/verifyToken.js";
+import { verifyToken, optionalVerifyToken } from "../middlewares/verifyToken.js";
 import { uploadImage } from "../middlewares/uploadImage.js";
 
 import {
@@ -15,7 +15,7 @@ const noteRouter = Router();
 
 noteRouter.post("/", verifyToken, uploadImage.single("image"), create);
 noteRouter.get("/", verifyToken, getAllNotes);
-noteRouter.get("/:id", getOneNote);
+noteRouter.get("/:id", optionalVerifyToken, getOneNote);
 noteRouter.delete("/:id", verifyToken, remove);
 noteRouter.put("/:id", verifyToken, uploadImage.single("image"), update);
 
