@@ -1,7 +1,11 @@
-
 import { useRef, useState } from "react";
 
+import { Link } from "react-router-dom";
+
+import { FaArrowLeft } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
+
+import { useNoteStore } from "../store/noteStore";
 
 function CreateNote() {
     const imageInputRef = useRef(null);
@@ -11,10 +15,27 @@ function CreateNote() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
+    const { isLoading, createNote } = useNoteStore();
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        alert('submit')
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("isPrivate", visibility === "private");
+
+        if (image) {
+            formData.append("image", image);
+        }
+
+        try {
+            await createNote(formData);
+        } catch (err) {
+            console.log(err.message)
+        }
+        setTitle('');
+        setDescription('');
     }
 
     function removeImage() {
@@ -23,10 +44,14 @@ function CreateNote() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center px-4 py-8">
+        <div className="flex flex-col min-h-screen items-center justify-center px-4 py-8">
             <form onSubmit={handleSubmit} className="w-full md:w-1/2 flex flex-col gap-5">
+                <Link to={'/notes'} className="mt-10 md:mb-5 flex gap-3 items-center font-bold text-xl cursor-pointer">
+                    <FaArrowLeft /> Notes
+                </Link>
                 <input
                     type="text"
+                    required
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     placeholder="Title"
@@ -87,8 +112,8 @@ function CreateNote() {
                     </button>
                 </div>
 
-                <button type="submit" className="bg-cyan-400 font-bold text-black w-fit px-5 py-2 cursor-pointer mt-4 text-lg rounded-full">
-                    Create Note
+                <button disabled={isLoading} type="submit" className="bg-cyan-400 font-bold text-black w-fit px-5 py-2 cursor-pointer mt-4 text-lg rounded-full">
+                    {isLoading ? "Creating..." : "Create Note"}
                 </button>
             </form>
         </div>

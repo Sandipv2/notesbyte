@@ -15,5 +15,74 @@ export const useNoteStore = create((set) => ({
     notes: [],
     isLoading: false,
 
-    
+    createNote: async (noteData) => {
+        try {
+            set({ isLoading: true });
+            const { data } = await noteAPI.post('/', noteData);
+            set({ isLoading: false });
+            toast.success("Note created!");
+            return data;
+        } catch (error) {
+            set({ isLoading: false });
+            toast.error(err.response.data.message || err.message);
+            throw error;
+        }
+    },
+
+    getAllNotes: async () => {
+        try {
+            set({ isLoading: true });
+            const { data } = await noteAPI.get('/');
+
+            set({ isLoading: false, notes: data.notes });
+            return data;
+        } catch (error) {
+            set({ isLoading: false });
+            toast.error(err.response.data.message || err.message);
+            throw error;
+        }
+    },
+
+    updateNote: async (noteId, noteData) => {
+        try {
+            set({ isLoading: true });
+
+            const { data } = await noteAPI.put(`/${noteId}`, noteData);
+            set({ isLoading: false });
+            return data;
+        } catch (error) {
+            set({ isLoading: false });
+            toast.error(err.response.data.message || err.message);
+            throw error;
+        }
+    },
+
+    deleteNote: async (noteId) => {
+        try {
+            set({ isLoading: true });
+
+            const { data } = await noteAPI.delete(`/${noteId}`, noteData);
+            set({ isLoading: false });
+            return data;
+
+        } catch (error) {
+            set({ isLoading: false });
+            toast.error(err.response.data.message || err.message);
+            throw error;
+        }
+    },
+
+    getNote: async (noteId) => {
+        try {
+            set({ isLoading: true });
+
+            const { data } = await noteAPI.get(`/${noteId}`);
+            set({ isLoading: false });
+            return data.note;
+        } catch (error) {
+            set({ isLoading: false });
+            toast.error(err.response.data.message || err.message);
+            throw error;
+        }
+    }
 }));

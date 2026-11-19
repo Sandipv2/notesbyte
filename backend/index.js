@@ -3,6 +3,7 @@ dotenv.config();
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
+import path from 'path';
 
 import authRouter from './routes/auth.route.js';
 import noteRouter from './routes/note.route.js';
@@ -13,6 +14,7 @@ import connectDB from './config/mongodb.js';
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -24,6 +26,19 @@ app.use(cors({
 
 app.use("/api/auth", authRouter);
 app.use("/api/notes", noteRouter);
+
+if (process.env.NODE_ENV === "production") {
+  const distPath = path.join(__dirname, "frontend", "dist");
+
+  app.use(express.static(distPath));
+
+  app.use((req, res, next) => {
+    if (req.path.startsWith("/api")) {
+      return next();
+    }
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
     connectDB();
