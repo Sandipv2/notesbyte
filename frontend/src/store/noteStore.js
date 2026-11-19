@@ -81,7 +81,7 @@ export const useNoteStore = create((set) => ({
             return data.note;
         } catch (error) {
             set({ isLoading: false });
-            toast.error(err.response.data.message || err.message);
+            toast.error(error.response.data.message || error.message);
             throw error;
         }
     }
