@@ -61,7 +61,7 @@ export const useNoteStore = create((set) => ({
         try {
             set({ isLoading: true });
 
-            const { data } = await noteAPI.delete(`/${noteId}`, noteData);
+            const { data } = await noteAPI.delete(`/${noteId}`);
             set({ isLoading: false });
             return data;
 
@@ -78,7 +78,7 @@ export const useNoteStore = create((set) => ({
 
             const { data } = await noteAPI.get(`/${noteId}`);
             set({ isLoading: false });
-            return data.note;
+            return {...data.note, isOwner: data.isOwner};
         } catch (error) {
             set({ isLoading: false });
             toast.error(error.response.data.message || error.message);

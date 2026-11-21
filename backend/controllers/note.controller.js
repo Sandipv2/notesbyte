@@ -87,7 +87,9 @@ export const remove = async (req, res) => {
         }
 
         await note.deleteOne();
-        await cloudinary.uploader.destroy(note.imagePublicId, { resource_type: "image" });
+        if (note.imagePublicId) {
+            await cloudinary.uploader.destroy(note.imagePublicId, { resource_type: "image" });
+        }
 
         return res.status(200).json({
             success: true,
@@ -143,7 +145,7 @@ export const update = async (req, res) => {
             note.imageUrl = uploadedImage.secure_url;
             note.imagePublicId = uploadedImage.public_id;
         }
-        else {
+        else if (req.body.removeImage === "true") {
             if (note.imagePublicId) {
                 await cloudinary.uploader.destroy(note.imagePublicId, { resource_type: "image" });
             }
