@@ -11,10 +11,10 @@ function Notes() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  const { notes, isLoading, getAllNotes } = useNoteStore();
+  const { notes, getAllNotes } = useNoteStore();
 
   useEffect(() => {
-    getAllNotes().then(e => console.log(e));
+    getAllNotes().catch(e => console.log(e));
   }, [getAllNotes]);
 
   const visibleNotes = useMemo(() => notes.filter((note) => {
