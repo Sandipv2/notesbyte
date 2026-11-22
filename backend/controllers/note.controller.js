@@ -145,7 +145,7 @@ export const update = async (req, res) => {
             note.imageUrl = uploadedImage.secure_url;
             note.imagePublicId = uploadedImage.public_id;
         }
-        else if (req.body.removeImage === "true") {
+        else if (req.body.removeImage === "true" || req.body.removeImage === true) {
             if (note.imagePublicId) {
                 await cloudinary.uploader.destroy(note.imagePublicId, { resource_type: "image" });
             }

@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaEdit, FaShareAlt } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import toast from "react-hot-toast";
 
 import { useNoteStore } from "../store/noteStore";
-import { useAuthStore } from "../store/authStore";
 
 function ViewNote() {
   const { noteId } = useParams();
   const navigate = useNavigate();
+  const imageInputRef = useRef(null);
 
   const { isLoading, getNote, deleteNote, updateNote } = useNoteStore();
 
@@ -22,6 +22,8 @@ function ViewNote() {
   const [title, setTitle] = useState("");
   const [isOwner, setIsOwner] = useState(false);
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   useEffect(() => {
     getNote(noteId)
@@ -83,18 +85,26 @@ function ViewNote() {
       return;
     }
 
+    const formData = new FormData();
+    formData.append("title", title.trim());
+    formData.append("description", description.trim());
+    formData.append("isPrivate", visibility === "private");
+
+    if (image) {
+      formData.append("image", image);
+    } else if (removeImage) {
+      formData.append("removeImage", true);
+    }
+
     try {
-      await updateNote(noteId, {
-        title: title.trim(),
-        description: description.trim(),
-        isPrivate: visibility === "private",
-      });
+      const res = await updateNote(noteId, formData);
       setNote((prev) => ({
         ...prev,
-        title: title.trim(),
-        description: description.trim(),
-        isPrivate: visibility === "private",
+        ...res.note,
       }));
+      setImage(null);
+      setRemoveImage(false);
+      if (imageInputRef.current) imageInputRef.current.value = "";
       setIsEditing(false);
       toast.success("Note updated successfully!");
     } catch (e) {
@@ -106,6 +116,9 @@ function ViewNote() {
   const handleCancel = () => {
     setTitle(note?.title || "");
     setDescription(note?.description || "");
+    setImage(null);
+    setRemoveImage(false);
+    if (imageInputRef.current) imageInputRef.current.value = "";
     setIsEditing(false);
   };
 
@@ -173,12 +186,91 @@ function ViewNote() {
                   className="border border-slate-700 outline-none rounded-lg p-3 bg-black text-white text-lg focus:border-cyan-400 leading-relaxed"
                 />
 
+                {/* Image Update and Remove */}
+                <div className="flex flex-col gap-3">
+                  {note?.imageUrl && !removeImage && !image && (
+                    <div className="flex flex-col gap-2">
+                      <p className="text-sm font-semibold text-slate-400">Current Image:</p>
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={note.imageUrl}
+                          alt={note.title}
+                          className="w-32 h-20 object-cover rounded-md border border-slate-700"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setRemoveImage(true)}
+                          className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-md text-sm font-bold cursor-pointer transition"
+                        >
+                          Remove Image
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* If user clicked remove, show undo option */}
+                  {removeImage && !image && (
+                    <div className="flex items-center gap-3">
+                      <span className="text-red-400 text-sm">Image will be removed upon saving.</span>
+                      <button
+                        type="button"
+                        onClick={() => setRemoveImage(false)}
+                        className="text-cyan-400 text-sm hover:underline cursor-pointer"
+                      >
+                        Undo
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Upload new image */}
+                  <div className="flex items-center gap-3">
+                    <label
+                      htmlFor="image"
+                      className="cursor-pointer rounded-lg border border-slate-500 px-4 py-2 text-white hover:border-cyan-400 transition"
+                    >
+                      {note?.imageUrl && !removeImage ? "Change Image" : "Choose Image"}
+                    </label>
+
+                    <input
+                      type="file"
+                      id="image"
+                      name="image"
+                      className="hidden"
+                      accept="image/*"
+                      ref={imageInputRef}
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setImage(e.target.files[0]);
+                          setRemoveImage(false);
+                        }
+                      }}
+                    />
+
+                    {image && (
+                      <div className="flex items-center gap-2 text-sm text-slate-300">
+                        <span>{image.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setImage(null);
+                            if (imageInputRef.current) imageInputRef.current.value = "";
+                          }}
+                          className="text-red-400 hover:text-red-300 font-bold ml-1 cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-4 mt-2">
                   <button
                     type="submit"
-                    className="bg-cyan-400 font-bold text-black px-6 py-2 rounded-full cursor-pointer hover:bg-cyan-300 transition text-lg"
+                    disabled={isLoading}
+                    className={`bg-cyan-400 font-bold text-black px-6 py-2 rounded-full cursor-pointer hover:bg-cyan-300 transition text-lg ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                   >
-                    Save
+                    {isLoading ? "Saving..." : "Save"}
                   </button>
                   <button
                     type="button"

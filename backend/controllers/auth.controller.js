@@ -1,5 +1,6 @@
 import { User } from "../models/user.model.js";
 import { Note } from "../models/note.model.js";
+import { cloudinary } from "../config/cloudinary.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 import { sendAccountDeletedMail, sendPasswordResetMail, sendPasswordResetSuccessMail, sendVerificationMail, sendWelcomeMail } from "../emails/emails.js";
 
@@ -344,7 +345,16 @@ export const deleteAccount = async (req, res) => {
             })
         }
 
-        await Note.deleteMany({ userId });
+        const notes = await Note.find({ userId })
+
+        notes.forEach(async (note) => {
+            if (note.imagePublicId) {
+                await cloudinary.uploader.destroy(note.imagePublicId, { resource_type: "image" });
+            }
+
+            await Note.findByIdAndDelete(note._id);
+        })
+
         await User.findByIdAndDelete(userId);
 
         await sendAccountDeletedMail(user.name, user.email);
