@@ -33,7 +33,7 @@ export const register = async (req, res) => {
             email,
             password: hashedPassword,
             verifyOtp,
-            verfiyOtpExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
+            verifyOtpExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
         });
 
         generateTokenAndSetCookie(res, user._id);

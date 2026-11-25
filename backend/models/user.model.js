@@ -19,12 +19,12 @@ const userSchema =new mongoose.Schema(
             type: Boolean,
             default:false,
         },
-        lastlogin:{
+        lastLogin:{
             type: Date,
             default: Date.now,
         },
         verifyOtp: Number,
-        verfiyOtpExpiresAt: Date,
+        verifyOtpExpiresAt: Date,
         resetPasswordToken: String,
         resetPasswordTokenExpiresAt: Date,
     },

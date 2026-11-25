@@ -16,6 +16,7 @@ export const useAuthStore = create((set) => ({
     user: null,
     isLoading: false,
     isLoggedIn: false,
+    isAccountDeleting: false,
 
     signup: async (name, email, password) => {
         set({ isLoading: true });
@@ -140,16 +141,16 @@ export const useAuthStore = create((set) => ({
     },
 
     deleteAccount: async () => {
-        set({ isLoading: true });
+        set({ isAccountDeleting: true });
         try {
-            const { data } = await authAPI.post('/delete-account');
+            const { data } = await authAPI.delete('/delete-account');
 
-            set({ isLoading: false });
+            set({ isAccountDeleting: false });
             toast.success("Account deleted!");
 
             return data;
         } catch (err) {
-            set({ isLoading: false });
+            set({ isAccountDeleting: false });
             toast.error(err.response?.data?.message || err.message);
             throw err;
         }
